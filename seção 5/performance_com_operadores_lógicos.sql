@@ -1,0 +1,82 @@
+/* COUNT(*), GROUP BY, PERFORMANCE COM OPERADORES LÓGICOS */
+
+/*CONTANDO OS REGISTROS DE UMA TABELA*/
+
+SELECT COUNT(*) FROM CLIENTE;
+/*
+mysql> SELECT COUNT(*) FROM CLIENTE;
++----------+
+| COUNT(*) |
++----------+
+|        6 |
++----------+
+*/
+
+/*PODEMOS USAR UM 'AS' PARA NÃO MOSTRAR O NOME DA FUNÇÃO*/
+
+SELECT COUNT(*) AS 'QUANTIDADE DE REGISTROS DA TABELA CLIENTE' FROM CLIENTE;
+/*
+mysql> SELECT COUNT(*) AS 'QUANTIDADE DE REGISTROS DA TABELA CLIENTE' FROM CLIENTE;
++-------------------------------------------+
+| QUANTIDADE DE REGISTROS DA TABELA CLIENTE |
++-------------------------------------------+
+|                                         6 |
++-------------------------------------------+
+*/
+
+/* OPERADOR GROUP BY */
+SELECT SEXO, COUNT(*) FROM CLIENTE;
+/* RESULTA EM ERRO: 
+
+mysql> SELECT SEXO, COUNT(*) FROM CLIENTE;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'projeto.CLIENTE.SEXO'; this is incompatible with sql_mode=only_full_group_by
+*/
+
+SELECT SEXO, COUNT(*) FROM CLIENTE GROUP BY SEXO;
+
+/*
+mysql> SELECT SEXO, COUNT(*) FROM CLIENTE GROUP BY SEXO;
++------+----------+
+| SEXO | COUNT(*) |
++------+----------+
+| M    |        2 |
+| F    |        4 |
++------+----------+
+*/
+
+/* PERFORMANCE EM OPERADORE LÓGICOS */
+
+/*
+1 MILHÃO DE REGISTROS 
+
+PARA CONTAR
+SELECT COUNT(*) FROM CLIENTE;
+
+SELECT SEXO, COUNT(*) FROM CLIENTE GROUP BY SEXO;
+
+SELECT CIDADE, COUNT(*) FROM CLIENTE GROUP BY CIDADE;
+
+CONDIÇÃO:
+SEXO = F
+CIDADE = RIO DE JANEIRO
+
+SITUAÇÃO - TRATANDO COM OU / OR 
+70% DAS MULHERES = SEXO = F
+30% MORA NO RIO DE JANEIRO
+
+SELECT NOME, SEXO, ENDERECO
+FROM CLIENTE
+WHERE SEXO = 'F'
+OR CIDADE = 'RIO DE JANEIRO';
+
+
+SITUAÇÃO - TRATANDO COM E / AND
+70% DAS MULHERES = SEXO = F
+30% MORA NO RIO DE JANEIRO;
+
+SELECT NOME, SEXO, ENDERECO
+FROM CLIENTE
+WHERE CIDADE = 'RIO DE JANEIRO'
+AND SEXO = 'F';
+
+*/

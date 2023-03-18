@@ -1,0 +1,29 @@
+/*FILTRANDO VALORES NULOS*/
+SELECT NOME, SEXO, ENDERECO FROM CLIENTE WHERE SEXO = 'F';
+
+/*
+mysql> SELECT NOME, SEXO, ENDERECO FROM CLIENTE WHERE SEXO = 'F';
++--------+------+-----------------------------------------------+
+| NOME   | SEXO | ENDERECO                                      |
++--------+------+-----------------------------------------------+
+| CELIA  | F    | RIACHUELO - CENTRO - RIO DE JANEIRO - RJ      |
+| LILIAN | F    | SENADOR SOARES - TIJUCA - RIO DE JANEIRO - RJ |
+| ANA    | F    | PRES ANTONIO CARLOS - CENTRO - SÃO PAULO - SP |
+| CARLA  | F    | SAMUEL SILVA - CENTRO - BELO HORIZONTE - MG   |
++--------+------+-----------------------------------------------+
+*/
+
+SELECT NOME, SEXO, ENDERECO FROM CLIENTE WHERE EMAIL = NULL; -- FORMA ERRADA
+
+/*
+mysql> SELECT NOME, SEXO, ENDERECO FROM CLIENTE WHERE EMAIL = NULL;
+Empty set (0.00 sec)
+*/
+
+SELECT NOME, SEXO, ENDERECO FROM CLIENTE WHERE EMAIL IS NULL; -- FORMA CERTA
+
+-- FORMA DE TRAZER TODAS AS INFORMAÇÕES QUE NÃO SÃO NULAS
+
+SELECT NOME, SEXO, ENDERECO FROM CLIENTE WHERE EMAIL IS NOT NULL;
+
+/* IS OU IS NOT NULL */
